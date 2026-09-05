@@ -1,3 +1,8 @@
+import config
+
+
+
+
 def format_patient_name(first_name: str, last_name: str) -> str:
     """
     Formats a patient's first name and last name into a single display string.
@@ -12,12 +17,15 @@ def format_patient_name(first_name: str, last_name: str) -> str:
     Returns:
         str: The formatted name string
     """
+
     # Strip extra spaces from both names before combining them
     first_name = first_name.strip()
     last_name = last_name.strip()
     
     # Return the name in Last, First format
     return f"{last_name}, {first_name}"
+
+
 
 
 def is_valid_patient_id(patient_id: str) -> bool:
@@ -43,7 +51,10 @@ def is_valid_patient_id(patient_id: str) -> bool:
     
     # Check if the patient_id matches the pattern
     # re.match returns a match object if found, or None if not found
+
     return bool(re.match(pattern, patient_id))
+
+
 
 
 def get_role_display_name(role_code: str) -> str:
@@ -68,3 +79,4 @@ def get_role_display_name(role_code: str) -> str:
     
     # Return the matching display name, or 'Unknown Role' as a safe default
     return role_map.get(role_code, "Unknown Role")
+
