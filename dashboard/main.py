@@ -155,7 +155,6 @@ def get_patient_by_id(patient_id: int):
     cursor.close()
     db.close()
 
-    # Patient does not exist
     if patient is None:
         raise HTTPException(
             status_code=404,
@@ -163,6 +162,48 @@ def get_patient_by_id(patient_id: int):
         )
 
     return patient
+
+
+# ─────────────────────────────────────────────────────────────
+# GET APPOINTMENTS BY PATIENT
+# ─────────────────────────────────────────────────────────────
+
+@app.get('/patients/{patient_id}/appointments')
+def get_patient_appointments(patient_id: int):
+
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+
+    cursor.execute(
+        '''
+        SELECT
+            a.appointment_id,
+            a.patient_id,
+            p.full_name AS patient_name,
+            a.doctor_id,
+            d.full_name AS doctor_name,
+            a.appointment_date,
+            a.status
+        FROM appointment a
+        JOIN patient p
+            ON a.patient_id = p.patient_id
+        JOIN doctor d
+            ON a.doctor_id = d.doctor_id
+        WHERE a.patient_id = %s
+        ORDER BY a.appointment_date DESC
+        ''',
+        (patient_id,)
+    )
+
+    appointments = cursor.fetchall()
+
+    cursor.close()
+    db.close()
+
+    return {
+        'patient_id': patient_id,
+        'appointments': appointments
+    }
 
 
 # ─────────────────────────────────────────────────────────────
