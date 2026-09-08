@@ -285,3 +285,30 @@ def get_doctors():
     return {
         'doctors': doctors
     }
+
+
+# ─────────────────────────────────────────────────────────────
+# DOCTOR ANALYTICS
+# ─────────────────────────────────────────────────────────────
+
+@app.get('/analytics/doctors')
+def get_doctor_analytics():
+
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+
+    cursor.execute(
+        '''
+        SELECT
+            doctor_name,
+            appointment_count
+        FROM vw_doctor_appointment_summary
+        '''
+    )
+
+    doctors = cursor.fetchall()
+
+    cursor.close()
+    db.close()
+
+    return doctors
