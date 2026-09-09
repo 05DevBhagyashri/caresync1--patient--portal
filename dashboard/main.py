@@ -283,22 +283,22 @@ def get_doctor_analytics():
     db = get_db()
     cursor = db.cursor(dictionary=True)
 
-    cursor.execute(
-        '''
+    query = '''
         SELECT
             doctor_name,
             total_appointments
         FROM vw_doctor_appointment_summary
         ORDER BY total_appointments DESC
-        '''
-    )
+    '''
 
-    doctors = cursor.fetchall()
+    cursor.execute(query)
+
+    analytics = cursor.fetchall()
 
     cursor.close()
     db.close()
 
-    return {'doctors': doctors}
+    return analytics
 
 # ENDPOINT 5: Appointment list
 # URL: http://127.0.0.1:8000/appointments
