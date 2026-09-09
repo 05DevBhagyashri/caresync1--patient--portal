@@ -298,14 +298,14 @@ def get_doctor_analytics():
     cursor = db.cursor(dictionary=True)
 
     cursor.execute(
-    '''
-    SELECT
-        doctor_name,
-        total_appointments
-    FROM vw_doctor_appointment_summary
-    ORDER BY total_appointments DESC
-    '''
-)
+        '''
+        SELECT
+            doctor_name,
+            total_appointments
+        FROM vw_doctor_appointment_summary
+        ORDER BY total_appointments DESC
+        '''
+    )
 
     doctors = cursor.fetchall()
 
