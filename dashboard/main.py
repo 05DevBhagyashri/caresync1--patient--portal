@@ -300,6 +300,8 @@ def get_doctor_analytics():
 
     return analytics
 
+    return analytics
+
 # ENDPOINT 5: Appointment list
 # URL: http://127.0.0.1:8000/appointments
 # Returns: all appointments with patient and doctor names
