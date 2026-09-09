@@ -301,6 +301,7 @@ def get_doctor_analytics():
         '''
         SELECT
             doctor_name,
+            appointment_count,
             total_appointments
         FROM vw_doctor_appointment_summary
         ORDER BY total_appointments DESC
